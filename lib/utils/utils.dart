@@ -1,0 +1,105 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:mingleph/l10n/app_localizations.dart';
+import 'package:mingleph/utils/ui_sizes.dart';
+
+class AppUtils {
+  AppUtils._();
+
+  static void showDialog({
+    required BuildContext context,
+    required String title,
+    required String middleText,
+    String? firstBtnText,
+    String? secondBtnText,
+    required VoidCallback onFirstBtnPressed,
+    required VoidCallback onSecondBtnPressed,
+    TextStyle? firstBtnTextStyle,
+    TextStyle? secondBtnTextStyle,
+  }) {
+    final localizations = AppLocalizations.of(context)!;
+
+    showAdaptiveDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogCtx) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(UiSizes.size_20),
+        ),
+        title: Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: UiSizes.size_16,
+          ),
+        ),
+        content: Text(
+          middleText,
+          style: TextStyle(
+            fontSize: UiSizes.size_12,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        actionsPadding: EdgeInsets.symmetric(
+          horizontal: UiSizes.size_20,
+          vertical: UiSizes.size_8,
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: onFirstBtnPressed,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              padding: EdgeInsets.symmetric(
+                horizontal: UiSizes.width_20,
+                vertical: UiSizes.height_10,
+              ),
+            ),
+            child: Text(
+              firstBtnText ?? localizations.confirm,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontSize: UiSizes.size_14,
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: onSecondBtnPressed,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              textStyle: secondBtnTextStyle,
+              padding: EdgeInsets.symmetric(
+                horizontal: UiSizes.width_20,
+                vertical: UiSizes.height_10,
+              ),
+            ),
+            child: Text(
+              secondBtnText ?? localizations.cancel,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontSize: UiSizes.size_14,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static void showBlurredLoaderDialog(BuildContext context) {
+    showAdaptiveDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogCtx) => BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: Center(
+          child: LoadingAnimationWidget.threeRotatingDots(
+            color: Theme.of(dialogCtx).colorScheme.primary,
+            size: UiSizes.size_40,
+          ),
+        ),
+      ),
+    );
+  }
+}

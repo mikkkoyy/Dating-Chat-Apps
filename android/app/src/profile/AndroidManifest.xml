@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ph.mingleph.app">
+    <!-- The INTERNET permission is required for development. Specifically,
+         the Flutter tool needs it to communicate with the running application
+         to allow setting breakpoints, to provide hot reload, etc.
+    -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- Cleartext lives here and NOT in the main manifest: development talks to
+         a local Appwrite over plain http, while release builds pass
+         APPWRITE_SCHEME=https and must not be downgradable. -->
+    <application android:usesCleartextTraffic="true" />
+</manifest>
