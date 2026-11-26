@@ -6,4 +6,6 @@ The upstream project's original `README.md` and `PRIVACY-POLICY.md` are retained
 
 The upstream Android release workflow referenced AOSSIE signing secrets and an AOSSIE Play Store package. It is retained as `docs/upstream/build_and_deploy.yml.disabled` for reference and is not an active workflow. MinglePH does not publish or deploy from this repository.
 
+Upstream workflows that posted comments to PRs/issues or pushed generated commits are also retained under `docs/upstream/` with a `.disabled` suffix. Only non-deploying test/version checks remain active; they do not post messages.
+
 MinglePH is an independent adaptation. AOSSIE and the Resonate contributors do not endorse it. This notice is not legal advice; review GPL-3.0 obligations before redistributing builds or combining the code with other components.

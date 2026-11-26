@@ -9,7 +9,6 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   check_version_bump:
@@ -70,50 +69,6 @@ jobs:
             echo "VERDICT"
           } >> "$GITHUB_OUTPUT"
           exit $status
-
-      - name: Explain the failure on the PR
-        if: failure() && steps.compare.outcome == 'failure'
-        uses: actions/github-script@v7
-        env:
-          VERDICT: ${{ steps.compare.outputs.result }}
-        with:
-          script: |
-            const marker = '<!-- version-bump-check -->';
-            const body = [
-              marker,
-              '### ⚠️ pubspec version not bumped',
-              '',
-              '```',
-              process.env.VERDICT || 'See the workflow log for details.',
-              '```',
-              '',
-              'Both stores reject an upload whose build number is not higher',
-              'than the last accepted one. Bump the `+<build>` half of',
-              '`version:` in `pubspec.yaml` before merging.',
-              '',
-              'If this PR ships nothing to the stores, add the',
-              '`skip-version-check` label.',
-            ].join('\n');
-
-            const { owner, repo } = context.repo;
-            const issue_number = context.issue.number;
-            const comments = await github.rest.issues.listComments({
-              owner, repo, issue_number,
-            });
-            const existing = comments.data.find(
-              (c) => c.body && c.body.includes(marker),
-            );
-
-            // Update in place so a re-pushed branch does not stack comments.
-            if (existing) {
-              await github.rest.issues.updateComment({
-                owner, repo, comment_id: existing.id, body,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner, repo, issue_number, body,
-              });
-            }
 
       - name: Report a skip
         if: steps.scope.outputs.needed != 'true'
