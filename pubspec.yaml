@@ -65,6 +65,9 @@ dependencies:
   random_string: ^2.3.1
   riverpod_annotation: ^4.0.0
   share_plus: ^13.3.1
+  # Supabase is prepared as an optional dating-data backend. Existing Appwrite
+  # authentication and voice/social services remain active during migration.
+  supabase_flutter: ^2.18.3
   textfield_tags:
     git:
       url: https://github.com/lionelmennig/textfield_tags.git

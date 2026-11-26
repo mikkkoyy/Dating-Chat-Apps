@@ -4,21 +4,22 @@ MinglePH is a Flutter Android/iOS social dating and voice chat project in active
 
 ## Current foundation
 
-The inherited client includes Flutter/Riverpod screens and services for Appwrite authentication and social data, LiveKit audio rooms and calls, room chat, pair chat, friend relationships, stories, notifications, and user activity. It has 193 upstream tests. These inherited modules still require a separately configured MinglePH backend; they are not evidence that MinglePH's dating or coin flows are complete.
+The inherited client includes Flutter/Riverpod screens and services for Appwrite authentication and social data, LiveKit audio rooms and calls, room chat, pair chat, friend relationships, stories, notifications, and user activity. It has 193 upstream tests. These inherited modules remain on Appwrite while a separate optional Supabase foundation is prepared for MinglePH dating data. Read [Architecture](docs/ARCHITECTURE.md), [Supabase setup](docs/SUPABASE_SETUP.md), [Database schema](docs/DATABASE_SCHEMA.md), and [Security](docs/SECURITY.md). Appwrite and Supabase identities are not linked yet.
 
 MinglePH-specific dating features (dating profiles, discovery and mutual matching, private dating chat, moments/feed, moderation flows, and a secure virtual economy) are **not implemented yet**. No demo users, fake online states, or fake wallet transactions are included.
 
 ## Technology choices
 
 - Flutter / Dart with Riverpod for Android, iOS, and the inherited Flutter web target.
-- Appwrite for identity, database, storage, functions, and push messaging.
+- Appwrite remains active for inherited identity, social data, storage, functions, and push messaging during migration.
+- Supabase is prepared for dating-domain PostgreSQL, Realtime, and private profile-photo storage; it remains optional until configured.
 - LiveKit for real-time audio rooms and calls.
 - Meilisearch remains optional for search.
-- PostgreSQL/Supabase is not added: the chosen base already has a substantial Appwrite backend integration, so adding a competing backend would split the architecture.
+- Dating data is being prepared in Supabase as a phased addition. Appwrite remains the current authentication authority until identity linking/migration is designed and tested; this phase does not duplicate existing data or silently replace working auth and voice flows.
 
 ## Local setup
 
-Install Flutter/Dart, Android SDK for Android, and Xcode/CocoaPods on macOS for iOS. Follow [ONBOARDING.md](ONBOARDING.md) for the Appwrite and LiveKit development services. That upstream guide describes Resonate's backend setup; create and configure a separate MinglePH Appwrite project and matching collections/functions before using this client with real accounts. Do not connect to AOSSIE's production project.
+Install Flutter/Dart, Android SDK for Android, and Xcode/CocoaPods on macOS for iOS. Follow [ONBOARDING.md](ONBOARDING.md) for the inherited Appwrite and LiveKit development services. Supabase setup is documented separately in [docs/SUPABASE_SETUP.md](docs/SUPABASE_SETUP.md). Do not connect to AOSSIE's production project.
 
 Use `.env.example` as a checklist of supported Flutter `--dart-define` names; it intentionally contains names only, not a dotenv file. Set platform-appropriate endpoints (for example, Android Emulator reaches host `localhost` through `10.0.2.2`). Keep actual credentials and signing files out of Git. `MEILISEARCH_API_KEY` defaults to empty and search is disabled unless explicitly configured.
 

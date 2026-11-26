@@ -75,3 +75,9 @@ temp/
 .vscode/
 appwrite
 ios/Runner/GoogleService-Info.plist
+
+# Supabase local state and credentials; keep migrations/config tracked.
+supabase/.temp/
+supabase/.branches/
+supabase/.env
+supabase/.env.*

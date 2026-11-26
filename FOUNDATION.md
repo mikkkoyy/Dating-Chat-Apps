@@ -12,7 +12,7 @@ Reviewed on 2026-11-26. GitHub repository pages and documentation were inspected
 
 ## Selected architecture
 
-Keep the existing Flutter/Riverpod client architecture and its Appwrite + LiveKit integration as one coherent base. Implement dating profiles, discovery/matching, messaging, moments, moderation, and wallet transactions as MinglePH modules with authorization and money-related state enforced server-side in Appwrite functions. Do not add Supabase/PostgreSQL alongside Appwrite without a deliberate migration plan. Replace Meilisearch's upstream example key default with an empty value and leave search disabled until configured.
+Keep the existing Flutter/Riverpod architecture, Appwrite-backed inherited account/voice/social modules, and LiveKit audio functionality. Phase 1 prepares a separate Supabase/PostgreSQL foundation for dating-domain data with RLS and private media. The Flutter Supabase client is optional and initializes only when its URL and publishable key are supplied. Appwrite remains the current authentication authority; its user IDs are strings while Supabase Auth uses UUIDs, so account linking/migration is required before authenticated dating requests can work. This phase does not migrate or duplicate existing data. Match and conversation provisioning must be a trusted server-side operation. Replace Meilisearch's upstream example key default with an empty value and leave search disabled until configured.
 
 ## Source and license notices
 

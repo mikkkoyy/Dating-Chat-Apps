@@ -14,6 +14,7 @@ import 'package:mingleph/features/shell/viewmodel/network_notifier.dart';
 import 'package:mingleph/features/theme/model/theme_list.dart';
 import 'package:mingleph/features/theme/model/theme_modes.dart';
 import 'package:mingleph/features/theme/viewmodel/theme_notifier.dart';
+import 'package:mingleph/core/services/supabase_backend.dart';
 import 'package:mingleph/features/settings/viewmodel/locale_notifier.dart';
 import 'package:mingleph/l10n/app_localizations.dart';
 import 'package:mingleph/l10n/raj_intl.dart';
@@ -26,6 +27,7 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   await GetStorage.init();
+  await SupabaseBackend.initializeIfConfigured();
   languageLocale =
       await FlutterSecureStorage().read(key: "languageLocale") ?? "en";
 

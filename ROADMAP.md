@@ -11,10 +11,11 @@ This roadmap separates code inherited from the voice-social foundation from Ming
 - [x] Existing upstream test suite retained (193 tests).
 - [x] MinglePH package/application identifiers and development-only service defaults.
 - [x] License and candidate evaluation recorded.
+- [x] Phase 1 architecture audit and optional Supabase dating-data foundation prepared; see `docs/` and `supabase/`.
 
 ## MinglePH work still required
 
-1. **Backend isolation and schema:** provision a new Appwrite project, collections, indexes, storage buckets, authorization rules, and server functions. Audit every client permission; never reuse AOSSIE project IDs or credentials.
+1. **Backend and identity:** provision the dedicated Supabase project, apply/review the dating schema and RLS, configure private storage, and design an explicit Appwrite-to-Supabase identity transition. Preserve inherited Appwrite/LiveKit features until migration is proven; never reuse upstream credentials.
 2. **Dating profile:** add age-appropriate profile fields, photo gallery and interests; validate uploads; allow edit, block, and report actions.
 3. **Discovery and matching:** add authorized preferences/filters, pass/like records, unique mutual-match creation, and abuse/rate controls in server functions.
 4. **Private messaging:** bind one-to-one conversation access to a mutual match or explicit policy; add real-time delivery, media validation, read state, typing state, and blocking/report enforcement.
